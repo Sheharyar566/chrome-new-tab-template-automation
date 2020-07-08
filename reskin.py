@@ -11,7 +11,7 @@ os.chdir('F://work')
 work = './'
 log_file = './log.txt'
 ext_record = '../extensions.xlsx'
-packed_extension = './packed'
+packed_dir = 'F:\\Private\\packed'
 local_src = './chrome-new-tab-template'
 remote_src = 'https://github.com/Sheharyar566/chrome-new-tab-template.git'
 
@@ -163,6 +163,15 @@ try:
     writeLog('Manifest.json edited sucessfully!')
 
     ####################################################################
+    writeLog('Creating the zip file for extension')
+
+    packed_extension = packed_dir + '/' + project.lower()
+    os.mkdir(packed_extension)
+    shutil.make_archive(packed_extension + '/' + project.lower(), 'zip', os.path.join(repo, 'public'))
+
+    writeLog('Zip created successfully!')
+
+    ####################################################################
     writeLog('Creating the backup for the project')
 
     backup(project.lower(), icons_dest, images_dest)
@@ -183,13 +192,6 @@ try:
     localRepo.git.push('origin', project.lower())
 
     writeLog('Extension pushed to github successfully!')
-
-    ####################################################################
-    writeLog('Creating the zip file for extension')
-
-    shutil.make_archive(os.path.join(packed_extension, project), 'zip', os.path.join(repo, 'public'))
-
-    writeLog('Zip created successfully!')
 
     ####################################################################
     writeLog('Inserting project into the record')
