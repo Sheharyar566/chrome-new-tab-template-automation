@@ -2,9 +2,12 @@ import os
 import json
 import shutil
 import openpyxl
+import pyperclip
 from PIL import Image
 from backup import backup
 from git import Repo, remote
+from packager import packager
+from writeLog import writeLog
 
 os.chdir('F://work')
 
@@ -19,14 +22,10 @@ images_src = r'C:\Users\Sheha\Desktop\assets\images\\'
 icons_src = r'C:\Users\Sheha\Desktop\assets\icons\original.jpg'
 thumbs_src = r'C:\Users\Sheha\Desktop\assets\thumbs\\'
 
-def writeLog(message):
-    with open(log_file, 'a') as log:
-        log.write(str(message) + '\n')
-
 try:
     ###################################################################
     project = input('Project Name: ')
-    project = project.capitalize()
+    project = project.capitalize().replace(' ', '-')
     project_name = project + ' New Tab Wallpapers'
 
     ####################################################################
@@ -138,7 +137,7 @@ try:
     packageJSON = repo + '/package.json'
     with open(packageJSON, 'r') as file:
         data = json.load(file)
-        data['name'] = project_name.lower().replace(' & ', ' ').replace(' ', '-')
+        data['name'] = project_name.lower().replace(' ', '-')
         data['description'] = project_name
 
     os.remove(packageJSON)
@@ -153,7 +152,7 @@ try:
     manifestJSON = repo + '/public/manifest.json'
     with open(manifestJSON, 'r') as file:
         data = json.load(file)
-        data['name'] = project_name
+        data['name'] = project_name.replace('-', ' ')
         data['description'] = project_name
 
     os.remove(manifestJSON)
@@ -170,6 +169,14 @@ try:
     shutil.make_archive(packed_extension + '/' + project.lower(), 'zip', os.path.join(repo, 'public'))
 
     writeLog('Zip created successfully!')
+
+    ####################################################################
+    writeLog('Creating the package files')
+
+    pyperclip.copy('F:\\Work\\' + project_name + '\\public')
+    packager(project.lower())
+
+    writeLog('Package files created successfully!')
 
     ####################################################################
     writeLog('Creating the backup for the project')
