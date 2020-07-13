@@ -1,5 +1,6 @@
 import os, shutil
-from writeLog import writeLog
+from functions import writeLog
+from functions import exceptionLogger
 
 backup_dir = 'F:\\Private\\backup\\'
 
