@@ -7,6 +7,7 @@ from PIL import Image
 from backup import backup
 from git import Repo, remote
 from packager import packager
+from uploader import uploader
 from functions import writeLog
 from functions import exceptionLogger
 
@@ -154,7 +155,7 @@ try:
     with open(manifestJSON, 'r') as file:
         data = json.load(file)
         data['name'] = project_name.replace('-', ' ')
-        data['description'] = project_name
+        data['description'] = project_name.replace('-', ' ')
 
     os.remove(manifestJSON)
     with open(manifestJSON, 'w') as file:
@@ -203,7 +204,7 @@ writeLog('Backup created successfully!')
 writeLog('Inserting project into the record')
 
 try:
-    sheet.append((project.lower(), '1.0.0', False, False))
+    sheet.append((project.lower(), '1.0.0', True, False))
     record.save(ext_record)
 except Exception as e:
     exceptionLogger(e)
@@ -211,14 +212,13 @@ except Exception as e:
 writeLog('Record inserted successfully!')
 
 ####################################################################
-writeLog('Removing project directory!')
-
+writeLog('Publishing the extension')
 try:
-    os.rmdir(repo)
+    uploader(project.lower().replace(' ', '-'))
 except Exception as e:
     exceptionLogger(e)
 
-writeLog('Project directory removed successfully!')
+writeLog('Extension published successfully!')
 
 ####################################################################
 writeLog('Extension created successfully!')

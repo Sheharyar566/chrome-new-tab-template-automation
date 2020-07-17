@@ -2,9 +2,12 @@ import pyperclip
 from time import sleep
 from pyautogui import click, scroll, moveTo, position, hotkey, press, write
 
-def uploader(project_name):
+def uploader(project_dir):
+
     chromeStoreDashboard = 'https://chrome.google.com/webstore/devconsole/6ef36149-0c2d-4623-9d07-32f2b8d1c33b'
-    packed_src = 'F:\\Private\\packed\\' + project_name
+    packed_src = 'F:\\Private\\packed\\' + project_dir
+    project_name = project_dir.capitalize().replace('-', ' ')
+    print(project_name)
 
     description = '''{project} New Tab & Wallpapers Collection
 Created by Solodev
@@ -79,7 +82,7 @@ Install {project} New Tab and enjoy handpicked HD images of {project} wallpapers
     ####################################################################################
     ####################### Uploading zip file #########################################
     sleep(0.5)
-    pyperclip.copy(packed_src + '\\' + project_name + '.zip')
+    pyperclip.copy(packed_src + '\\' + project_dir + '.zip')
 
     sleep(0.5)
     hotkey('ctrl', 'v')
@@ -87,7 +90,7 @@ Install {project} New Tab and enjoy handpicked HD images of {project} wallpapers
     sleep(0.5)
     press('enter')
                                         
-    sleep(60)
+    sleep(45)
 
     ####################################################################################
     ####################### Opening privacy section ####################################
@@ -193,7 +196,7 @@ Install {project} New Tab and enjoy handpicked HD images of {project} wallpapers
 
     ####################################################################################
     ####################### Uploading second image #####################################
-    sleep(20)
+    sleep(16)
     moveTo(720, 444, duration=0.25)
     click()
 
@@ -205,7 +208,7 @@ Install {project} New Tab and enjoy handpicked HD images of {project} wallpapers
 
     ####################################################################################
     ####################### Uploading third image ######################################
-    sleep(20)
+    sleep(16)
     moveTo(900, 444, duration=0.25)
     click()
 
@@ -217,7 +220,7 @@ Install {project} New Tab and enjoy handpicked HD images of {project} wallpapers
 
     ####################################################################################
     ####################### Uploading fourth image #####################################
-    sleep(20)
+    sleep(16)
     moveTo(1050, 444, duration=0.25)
     click()
 
@@ -229,7 +232,7 @@ Install {project} New Tab and enjoy handpicked HD images of {project} wallpapers
 
     ####################################################################################
     ####################### Uploading fifth image #####################################
-    sleep(20)
+    sleep(16)
     moveTo(1200, 444, duration=0.25)
     click()
 
@@ -241,7 +244,7 @@ Install {project} New Tab and enjoy handpicked HD images of {project} wallpapers
 
     ####################################################################################
     ####################### Entering description #######################################
-    sleep(20)
+    sleep(16)
     scroll(1000)
 
     sleep(1)
@@ -274,7 +277,7 @@ Install {project} New Tab and enjoy handpicked HD images of {project} wallpapers
 
     ####################################################################################
     ################################# Submitting extension #############################
-    sleep(4)
+    sleep(5)
     click()
 
     sleep(0.5)
@@ -293,5 +296,3 @@ Install {project} New Tab and enjoy handpicked HD images of {project} wallpapers
 
     sleep(10)
     hotkey('alt', 'f4')
-
-uploader('Abstract')

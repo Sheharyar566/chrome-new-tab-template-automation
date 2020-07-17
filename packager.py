@@ -30,7 +30,7 @@ def packager(project):
             pyautogui.write('c', 0.25)
             pyautogui.press('enter')
 
-            sleep(4)
+            sleep(5)
             pyautogui.moveTo(1582, 874, 0.5)
             pyautogui.click()
 
